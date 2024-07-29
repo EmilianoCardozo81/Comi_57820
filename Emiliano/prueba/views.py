@@ -5,13 +5,13 @@ def inicio(request):
     return render (request, "prueba/index.html")
 
 def cursos(request):
-    return HttpResponse("Vista cursos")
+    return render (request, "prueba/cursos.html")
 
 def profesores(request):
-    return HttpResponse("Vista profesores")
+    return render (request, "prueba/profesores.html")
 
 def estudiantes(request):
-    return HttpResponse("Vista estudiantes")
+    return render (request, "prueba/estudiantes.html")
 
 def entregables(request):
-    return HttpResponse("Vista entregables")
+    return render (request, "prueba/entregables.html")
