@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from prueba.forms import CursoFormulario
-from prueba.models import Curso
+from prueba.models import Curso,Estudiante
+from prueba.forms1 import EstudianteFormulario
 
 def inicio(request):
     return render (request, "prueba/index.html")
@@ -35,3 +36,18 @@ def form_con_api(request):
         mi_formulario = CursoFormulario()
 
     return render(request, "prueba/form_con_api.html", {"mi_formulario": mi_formulario})
+
+def form_est(request):
+    if request.method == "POST":
+        mi_form = EstudianteFormulario(request.POST) 
+        if mi_form.is_valid():
+            informacion = mi_form.cleaned_data
+            
+            estudiante = Estudiante(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"])
+            estudiante.save()
+
+            return render(request, "prueba/index.html")
+    else:
+        mi_form = EstudianteFormulario()
+
+    return render(request, "prueba/form_est.html", {"mi_form": mi_form})
