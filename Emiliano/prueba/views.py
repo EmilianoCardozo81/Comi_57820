@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from prueba.forms import CursoFormulario
 from prueba.models import Curso,Estudiante
-from prueba.forms1 import EstudianteFormulario
+from prueba.forms import EstudianteFormulario
+from prueba.forms import BuscaCursoForm
 
 def inicio(request):
     return render (request, "prueba/index.html")
@@ -18,8 +19,6 @@ def estudiantes(request):
 
 def entregables(request):
     return render (request, "prueba/entregables.html")
-
-
 
 def form_con_api(request):
     if request.method == "POST":
@@ -51,3 +50,21 @@ def form_est(request):
         mi_form = EstudianteFormulario()
 
     return render(request, "prueba/form_est.html", {"mi_form": mi_form})
+
+
+
+def buscar_form_con_api(request):
+    if request.method == "POST":
+        mi_formulario = BuscaCursoForm(request.POST) 
+
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+            
+            cursos = Curso.objects.filter(nombre__icontains=informacion["curso"])
+
+            return render(request, "prueba/mostrar_cursos.html", {"cursos": cursos})
+    else:
+        mi_formulario = BuscaCursoForm()
+
+    return render(request, "prueba/buscar_form_con_api.html", {"mi_formulario": mi_formulario})
+    
