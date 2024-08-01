@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from prueba.forms import CursoFormulario
-from prueba.models import Curso,Estudiante
-from prueba.forms import EstudianteFormulario
-from prueba.forms import BuscaCursoForm
+from prueba.models import *
+from prueba.forms import *
+
 
 def inicio(request):
     return render (request, "prueba/index.html")
@@ -20,7 +19,7 @@ def estudiantes(request):
 def entregables(request):
     return render (request, "prueba/entregables.html")
 
-def form_con_api(request):
+def form_curso(request):
     if request.method == "POST":
         mi_formulario = CursoFormulario(request.POST) # Aqui me llega la informacion del html
         # print(miFormulario)
@@ -34,9 +33,9 @@ def form_con_api(request):
     else:
         mi_formulario = CursoFormulario()
 
-    return render(request, "prueba/form_con_api.html", {"mi_formulario": mi_formulario})
+    return render(request, "prueba/form_curso.html", {"mi_formulario": mi_formulario})
 
-def form_est(request):
+def form_estudiante(request):
     if request.method == "POST":
         mi_form = EstudianteFormulario(request.POST) 
         if mi_form.is_valid():
@@ -49,11 +48,11 @@ def form_est(request):
     else:
         mi_form = EstudianteFormulario()
 
-    return render(request, "prueba/form_est.html", {"mi_form": mi_form})
+    return render(request, "prueba/form_estudiante.html", {"mi_form": mi_form})
 
 
 
-def buscar_form_con_api(request):
+def buscar_curso(request):
     if request.method == "POST":
         mi_formulario = BuscaCursoForm(request.POST) 
 
@@ -66,5 +65,19 @@ def buscar_form_con_api(request):
     else:
         mi_formulario = BuscaCursoForm()
 
-    return render(request, "prueba/buscar_form_con_api.html", {"mi_formulario": mi_formulario})
+    return render(request, "prueba/buscar_curso.html", {"mi_formulario": mi_formulario})
     
+def form_profesor(request):
+    if request.method == "POST":
+        mi_formulario = ProfesorFormulario(request.POST) 
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+            
+            profesor = Profesor(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"])
+            profesor.save()
+
+            return render(request, "prueba/index.html")
+    else:
+        mi_formulario = ProfesorFormulario()
+
+    return render(request, "prueba/form_profesor.html", {"mi_formulario": mi_formulario})

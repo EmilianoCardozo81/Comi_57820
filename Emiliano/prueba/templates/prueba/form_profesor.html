@@ -2,13 +2,11 @@
 
 {% load static %}
 
-{% block title %} Formulario con API {% endblock title %}
+{% block title %} Buscar Curso {% endblock title %}
 
 {% block main %}
-    <!-- En este ejemplo dejamos el action vacío ya que lo manejamos desde la vista -->
     <form action="" method="POST">
         {% csrf_token %}
-        
         <table>
             {{ mi_formulario.as_table }}
         </table>

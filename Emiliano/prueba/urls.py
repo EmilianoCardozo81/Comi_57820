@@ -7,9 +7,10 @@ urlpatterns = [
     path('profesores/', views.profesores, name ="Profesores"),
     path('estudiantes/', views.estudiantes, name ="Estudiantes"),
     path('entregables/', views.entregables, name ="Entregables"),
-    path('form-con-api/', views.form_con_api, name="FormConApi"),
-    path('form_est/', views.form_est, name="Form_Est"),
-    path('buscar-form-con-api/', views.buscar_form_con_api, name="Buscar_Form_Con_Api"),
+    path('form_curso/', views.form_curso, name="Form_Curso"),
+    path('form_estudiante/', views.form_estudiante, name="Form_Estudiante"),
+    path('form_profesor/', views.form_profesor, name="Form_Profesor"),
+    path('buscar_curso/', views.buscar_curso, name="Buscar_Curso"),
 ]
 
 
