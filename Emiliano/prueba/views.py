@@ -50,8 +50,6 @@ def form_estudiante(request):
 
     return render(request, "prueba/form_estudiante.html", {"mi_form": mi_form})
 
-
-
 def buscar_curso(request):
     if request.method == "POST":
         mi_formulario = BuscaCursoForm(request.POST) 
